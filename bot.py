@@ -1,4 +1,4 @@
-import smtplib, datetime, yfinance, sys
+import smtplib, sys, time
 
 #Initial Information
 sender_email = "mgroholskibot@gmail.com"
@@ -19,20 +19,21 @@ except:
     print("Did not enter an integer amount")
 
 emails = []
+
 for i in range(0,emailAmount):
-    email = input("Please input email " + i)
-    emails.append(email)
+        email = input("Please input email " + str(i + 1) + ": ")
+        emails.append(email)
 
-    #gets message
-    subject = input("Input Subject Line: ")
-    body = input("Input Body: ")
+subject = input("Input Subject Line: ")
+body = input("Input Body: ")
 
-    message = "Subject" + subject + " \n\n " + body
-    with smtplib.SMTP('smtp.gmail.com', 587) as server: 
-        server.starttls()
-        server.login(sender_email, password)
-        for receiver_email in emails:
-            server.sendmail(sender_email, receiver_email, message)
+message = "Subject: " + subject + " \n\n " + body
+with smtplib.SMTP('smtp.gmail.com', 587) as server: 
+    server.starttls()
+    server.login(sender_email, password)
+    for receiver_email in emails:
+        server.sendmail(sender_email, receiver_email, message)
+    
 
 
 print("Program Ending")
